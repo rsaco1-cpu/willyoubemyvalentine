@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Will You Be My Valentine?</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6ea;
+            margin-top: 50px;
+        }
+
+        img {
+            width: 300px;
+            margin: 20px 0;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #message {
+            font-size: 20px;
+            margin-top: 15px;
+        }
+
+        .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    top: -10px;
+    animation: fall linear forwards;
+    z-index: 999;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <h1>Will You Be My Valentine Emily? 💖</h1>
+
+    <img id="reaction" src="default.png" alt="Reaction Image">
+
+    <div id="message">Choose an option babe. theres only one right answer :D </div>
+
+    <div>
+        <button id="yesBtn" onclick="sayYes()">Yes 💕</button>
+        <button id="noBtn" onclick="sayNo()">No 💔</button>
+    </div>
+
+    <script>
+        let noCount = 0;
+
+        const noStages = [
+            { image: "no1.png", text: "uhhh.. babe... that was by accident right..." },
+            { image: "no2.png", text: "ahah very funny emily... always a jokester..." },
+            { image: "no3.jpg", text: "WELL, guess im single for Valentine's w/e 💔" },
+            { image: "no4.png", text: "no way u let me be single on valentines tho right" },
+            { image: "no5.png", text: "cmon arent i such a cutie :D" },
+            { image: "no6.jpg", text: "ight dont pmo lil bro just say yes" },
+            { image: "no7.png", text: "PLEASE BABE IM RUNNING OUT OF STICKERS" },
+            { image: "no8.png", text: "WE CAN BE BIGGIES TOGETHER CMONNNNN" },
+            { image: "no9.png", text: "DID THE SOLIDCORE WE DID TOGETHER MEAN NOTHING TO YOU" },
+            { image: "no10.png", text: "okay fine guess ill find another valentine" },
+            { image: "no11.png", text: "JK I will never do that babe ur such a baddie and I love you. This is my final plead I will be very respectful on Valentines and treat u like a queen i pinky promise :)" },
+            { image: "no12.png", text: "okay after all that still no??? fuck ur no option u lose it now >:(" }
+        ];
+
+        function sayNo() {
+            if (noCount < noStages.length) {
+                document.getElementById("reaction").src = noStages[noCount].image;
+                document.getElementById("message").textContent = noStages[noCount].text;
+                noCount++;
+            }
+
+            // After 12th no → delete the No button
+            if (noCount === noStages.length) {
+                document.getElementById("noBtn").remove();
+            }
+        }
+        function launchConfetti() {
+            const colors = ["#ff4d6d", "#ffafcc", "#ffc8dd", "#cdb4db", "#bde0fe"];
+
+            for (let i = 0; i < 120; i++) {
+            const confetti = document.createElement("div");
+            confetti.classList.add("confetti");
+
+            confetti.style.left = Math.random() * 100 + "vw";
+            confetti.style.backgroundColor =
+                colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animationDuration = (Math.random() * 2 + 2) + "s";
+
+            document.body.appendChild(confetti);
+
+            setTimeout(() => confetti.remove(), 4000);
+        }
+         }
+
+        function sayYes() {
+            // YES INSTANTLY (no Nos yet)
+            launchConfetti();
+            if (noCount === 0) {
+                document.getElementById("reaction").src = "yes1.jpg";
+                document.getElementById("message").textContent =
+                    "SHE DIDN’T EVEN HESITATE 😭💖 THAT’S MY VALENTINE.";
+            }
+            // YES AFTER SUFFERING
+            else {
+                document.getElementById("reaction").src = "yes.png";
+                document.getElementById("message").textContent =
+                    "I ALWAYS KNEW YOU'D SAY YES QUEEN. NOW YOU STUCK WITH A FREAK 😛 😎";
+            }
+
+            // Optional: remove both buttons after yes
+            document.getElementById("yesBtn").remove();
+            const noBtn = document.getElementById("noBtn");
+            if (noBtn) noBtn.remove();
+        }
+    </script>
+
+</body>
+</html>
